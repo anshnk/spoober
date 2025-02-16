@@ -24,6 +24,7 @@ func _on_ResumeButton_pressed():
 
 func _on_QuitButton_pressed():
 	print("Quit button pressed")
+	toggle_menu()
 	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 func _process(delta: float) -> void:
