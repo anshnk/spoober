@@ -1,31 +1,29 @@
 extends Node2D
 
-var spawn_interval = 2.0
+var spawn_interval = 1.0
 var time_passed = 0.0
 @onready var menu = $CanvasLayer/Control
+@onready var death_screen = $CanvasLayer/DeathScreen
+@onready var retry_button = $CanvasLayer/DeathScreen/Panel/RetryButton
+@onready var splunker_script = preload("res://assets/scripts/splunkers.gd")
 
 func _ready():
 	randomize()
-	menu.process_mode = Node.PROCESS_MODE_ALWAYS  
-	print("Game started. Menu should be visible.")
 
+	menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	death_screen.process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):  # Pressing Esc
-		toggle_menu()	
-		
-func toggle_menu():
-	menu.visible = !menu.visible
-	get_tree().paused = menu.visible  # Pause the game when menu is open
+	for button in menu.get_children():
+		if button is Control:
+			button.process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _on_ResumeButton_pressed():
-	print("Resume button pressed")
-	toggle_menu()
+	death_screen.visible = false 
 
-func _on_QuitButton_pressed():
-	print("Quit button pressed")
-	toggle_menu()
-	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	if retry_button:
+		retry_button.process_mode = Node.PROCESS_MODE_ALWAYS
+		retry_button.connect("pressed", Callable(self, "_on_retry_pressed"))
+	else:
+		print("Retry button not found.")
 
 func _process(delta: float) -> void:
 	time_passed += delta
@@ -35,23 +33,57 @@ func _process(delta: float) -> void:
 		spawn_interval = randf_range(0.5, 3.0)
 
 func _spawn_circle() -> void:
-	print("Spawning a new circle.")
-	var circle = Sprite2D.new()
-	circle.texture = preload("res://assets/images/splunker.png")
-	circle.set_script(load("res://assets/scripts/splunkers.gd"))
-	if circle:
-		add_child(circle)
+	print("Spawning a new splunker.")
+	var splunker = Sprite2D.new()
+	splunker.texture = preload("res://assets/images/splunker.png")
+	splunker.set_script(splunker_script)
+	if splunker:
+		add_child(splunker)
 		var position_valid = false
 		while not position_valid:
-			circle.position = Vector2(
+			splunker.position = Vector2(
 				randf_range(0, get_viewport_rect().size.x),
 				randf_range(0, get_viewport_rect().size.y)
 			)
 			position_valid = true
 			for other in get_tree().get_nodes_in_group("enemies"):
-				if other != circle and circle.position.distance_to(other.position) < 50:
+				if other != splunker and splunker.position.distance_to(other.position) < 50:
 					position_valid = false
 					break
-		print("Circle spawned at position: ", circle.position)
+		print("Splunker spawned at position: ", splunker.position)
 	else:
-		print("Failed to load splunkers.gd")
+		print("Failed to load splunker script.")
+
+func player_died():
+	print("Player died!")
+	death_screen.visible = true
+	get_tree().paused = true
+
+func _on_retry_pressed():
+	print("Retry button pressed!")
+	get_tree().paused = false
+	death_screen.visible = false
+	get_tree().reload_current_scene()
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"): 
+		toggle_menu()
+
+func toggle_menu():
+	menu.visible = !menu.visible
+
+	for button in menu.get_children():
+		if button is Control:
+			button.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	get_tree().paused = menu.visible
+
+func _on_ResumeButton_pressed():
+	print("Resume button pressed")
+	toggle_menu()
+
+func _on_QuitButton_pressed():
+	print("Quit button pressed! Changing to Main Menu...")
+	toggle_menu()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
