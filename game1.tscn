@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bee7myfaiowuq"]
+[gd_scene load_steps=6 format=3 uid="uid://bee7myfaiowuq"]
 
 [ext_resource type="Texture2D" uid="uid://0n5ngrcre6gn" path="res://assets/images/spoober.png" id="1_00l3t"]
 [ext_resource type="Script" path="res://assets/scripts/game1.gd" id="1_1frwn"]
 [ext_resource type="Script" path="res://assets/scripts/realspoobing.gd" id="2_o2rfk"]
+[ext_resource type="Texture2D" uid="uid://m3qeu26ytqfc" path="res://assets/images/goatedpeak.jpg" id="2_owrjb"]
+[ext_resource type="Texture2D" uid="uid://b87iqyo31c17v" path="res://assets/images/spoober-lost-in-space.png" id="5_1bxak"]
 
 [node name="Game1" type="Node2D"]
 script = ExtResource("1_1frwn")
+
+[node name="Goatedpeak" type="Sprite2D" parent="."]
+position = Vector2(575, 324.5)
+scale = Vector2(1.88562, 1.84857)
+texture = ExtResource("2_owrjb")
 
 [node name="Spoober" type="Sprite2D" parent="."]
 position = Vector2(568, 312)
@@ -14,3 +21,40 @@ texture = ExtResource("1_00l3t")
 script = ExtResource("2_o2rfk")
 
 [node name="Sprite2D" type="Sprite2D" parent="Spoober"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Spoober-lost-in-space" type="Sprite2D" parent="CanvasLayer/Control"]
+position = Vector2(576, 152)
+texture = ExtResource("5_1bxak")
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 296.0
+offset_right = 712.0
+offset_bottom = 336.0
+text = "Resume"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 360.0
+offset_right = 712.0
+offset_bottom = 400.0
+text = "Main Menu"
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Button2" to="." method="_on_quit_button_pressed"]

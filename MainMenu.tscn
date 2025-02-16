@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://ciq2l3gnatjdk"]
+[gd_scene load_steps=8 format=3 uid="uid://ciq2l3gnatjdk"]
 
 [ext_resource type="Texture2D" uid="uid://0n5ngrcre6gn" path="res://assets/images/spoober.png" id="1_20wto"]
 [ext_resource type="Script" path="res://assets/scripts/main_menu.gd" id="1_gwm0x"]
 [ext_resource type="Script" path="res://assets/scripts/play.gd" id="2_5l3ve"]
 [ext_resource type="Script" path="res://assets/scripts/spoob.gd" id="2_wougk"]
 [ext_resource type="Texture2D" uid="uid://b87iqyo31c17v" path="res://assets/images/spoober-lost-in-space.png" id="3_ik4vw"]
+[ext_resource type="Texture2D" uid="uid://hj7ko3bvh6jn" path="res://assets/images/Moober.png" id="6_ybvuf"]
+[ext_resource type="Texture2D" uid="uid://bhodnhv3crw0b" path="res://assets/images/Splunker.png" id="7_ejv8d"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_gwm0x")
@@ -19,7 +21,7 @@ text = "Spoobing time."
 script = ExtResource("2_5l3ve")
 
 [node name="Spoober" type="Sprite2D" parent="."]
-position = Vector2(256, 320)
+position = Vector2(207, 489)
 scale = Vector2(0.12832, 0.130196)
 texture = ExtResource("1_20wto")
 script = ExtResource("2_wougk")
@@ -28,3 +30,15 @@ script = ExtResource("2_wougk")
 position = Vector2(728, 96)
 scale = Vector2(0.884335, 0.893585)
 texture = ExtResource("3_ik4vw")
+
+[node name="Moober" type="Sprite2D" parent="."]
+position = Vector2(178, 196)
+scale = Vector2(0.0910797, 0.0869659)
+texture = ExtResource("6_ybvuf")
+script = ExtResource("2_wougk")
+
+[node name="Splunker" type="Sprite2D" parent="."]
+position = Vector2(571, 393)
+scale = Vector2(0.0753464, 0.074769)
+texture = ExtResource("7_ejv8d")
+script = ExtResource("2_wougk")
