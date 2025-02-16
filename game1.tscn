@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bee7myfaiowuq"]
+
+[ext_resource type="Texture2D" uid="uid://0n5ngrcre6gn" path="res://assets/images/spoober.png" id="1_00l3t"]
+[ext_resource type="Script" path="res://assets/scripts/game1.gd" id="1_1frwn"]
+[ext_resource type="Script" path="res://assets/scripts/realspoobing.gd" id="2_o2rfk"]
+
+[node name="Game1" type="Node2D"]
+script = ExtResource("1_1frwn")
+
+[node name="Spoober" type="Sprite2D" parent="."]
+position = Vector2(568, 312)
+scale = Vector2(0.0816974, 0.0822748)
+texture = ExtResource("1_00l3t")
+script = ExtResource("2_o2rfk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spoober"]

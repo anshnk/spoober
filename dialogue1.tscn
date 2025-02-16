@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://nojympkus10b"]
+
+[ext_resource type="Texture2D" uid="uid://0n5ngrcre6gn" path="res://assets/images/spoober.png" id="1_72lu1"]
+[ext_resource type="Script" path="res://assets/scripts/dialogue1.gd" id="2_d3noy"]
+[ext_resource type="Script" path="res://assets/scripts/spoob.gd" id="2_iism5"]
+
+[node name="Dialogue1" type="Node2D"]
+
+[node name="Spoober" type="Sprite2D" parent="."]
+position = Vector2(328, 304)
+scale = Vector2(-0.197107, 0.202083)
+texture = ExtResource("1_72lu1")
+script = ExtResource("2_iism5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_top = 504.0
+offset_right = 1152.0
+offset_bottom = 600.0
+script = ExtResource("2_d3noy")
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 88.0
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 104.0
+offset_right = 928.0
+offset_bottom = 135.0
+text = "Skip"
