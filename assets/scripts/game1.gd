@@ -4,22 +4,26 @@ var spawn_interval = 2.0
 var time_passed = 0.0
 @onready var menu = $CanvasLayer/Control
 
-func _ready() -> void:
+func _ready():
 	randomize()
-	print("Game started, ready to spawn circles.")
+	menu.process_mode = Node.PROCESS_MODE_ALWAYS  
+	print("Game started. Menu should be visible.")
+
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):  # Pressing Esc
-		toggle_menu()
+		toggle_menu()	
 		
 func toggle_menu():
 	menu.visible = !menu.visible
 	get_tree().paused = menu.visible  # Pause the game when menu is open
 
-func _on_resume_button_pressed():
+func _on_ResumeButton_pressed():
+	print("Resume button pressed")
 	toggle_menu()
 
-func _on_quit_button_pressed():
+func _on_QuitButton_pressed():
+	print("Quit button pressed")
 	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 func _process(delta: float) -> void:

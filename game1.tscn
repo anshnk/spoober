@@ -14,22 +14,14 @@ position = Vector2(575, 324.5)
 scale = Vector2(1.88562, 1.84857)
 texture = ExtResource("2_owrjb")
 
-[node name="Spoober" type="Sprite2D" parent="."]
-position = Vector2(568, 312)
-scale = Vector2(0.0816974, 0.0822748)
-texture = ExtResource("1_00l3t")
-script = ExtResource("2_o2rfk")
-
-[node name="Sprite2D" type="Sprite2D" parent="Spoober"]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -40,7 +32,7 @@ offset_bottom = 648.0
 position = Vector2(576, 152)
 texture = ExtResource("5_1bxak")
 
-[node name="Button" type="Button" parent="CanvasLayer/Control"]
+[node name="ResumeButton" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 296.0
@@ -48,7 +40,7 @@ offset_right = 712.0
 offset_bottom = 336.0
 text = "Resume"
 
-[node name="Button2" type="Button" parent="CanvasLayer/Control"]
+[node name="QuitButton" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 360.0
@@ -56,5 +48,13 @@ offset_right = 712.0
 offset_bottom = 400.0
 text = "Main Menu"
 
-[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/Button2" to="." method="_on_quit_button_pressed"]
+[node name="Spoober" type="Sprite2D" parent="."]
+position = Vector2(568, 312)
+scale = Vector2(0.0816974, 0.0822748)
+texture = ExtResource("1_00l3t")
+script = ExtResource("2_o2rfk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spoober"]
+
+[connection signal="pressed" from="CanvasLayer/Control/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/QuitButton" to="." method="_on_QuitButton_pressed"]
