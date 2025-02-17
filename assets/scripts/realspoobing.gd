@@ -9,6 +9,12 @@ var health: int = max_health
 @onready var health_bar = $HealthBar
 @onready var collision_area = $CollisionArea
 
+var corner_damage_timer = 0.0
+var corner_damage_threshold = 3.0 # Time in seconds to stay still near a corner before taking damage
+var corner_damage_rate = 1.0 # Time in seconds between each damage application
+var corner_damage_amount = 10 # Damage amount
+var corner_proximity_distance = 200 # Distance from the corner to trigger the damage
+
 func _ready():
 	add_to_group("player")
 	update_health_bar()
@@ -41,6 +47,19 @@ func _process(delta: float):
 
 	if Input.is_action_just_pressed("shoot"):
 		_shoot_bullet(mouse_pos)
+
+	# Check if the player is near the corner (within the proximity threshold)
+	if (position.x <= corner_proximity_distance or position.x >= screen_size.x - corner_proximity_distance) and \
+		(position.y <= corner_proximity_distance or position.y >= screen_size.y - corner_proximity_distance):
+		if velocity.length() == 0: # Player is stationary
+			corner_damage_timer += delta
+			if corner_damage_timer >= corner_damage_threshold:
+				take_damage(corner_damage_amount)
+				corner_damage_timer = 0.0 # Reset the damage timer to slow down damage application
+		else:
+			corner_damage_timer = 0.0
+	else:
+		corner_damage_timer = 0.0
 
 func _shoot_bullet(target_position: Vector2):
 	var bullet = load("res://assets/scripts/Bullet.gd").new()

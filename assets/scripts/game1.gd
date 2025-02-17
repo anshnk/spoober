@@ -5,11 +5,17 @@ var time_passed = 0.0
 @onready var menu = $CanvasLayer/Control
 @onready var death_screen = $CanvasLayer/DeathScreen
 @onready var retry_button = $CanvasLayer/DeathScreen/Panel/RetryButton
+@onready var time_label = $CanvasLayer/Time
+@onready var kills_label = $CanvasLayer/SplunkersKilled
 @onready var splunker_script = preload("res://assets/scripts/splunkers.gd")
 
-func _ready():
-	randomize()
+var time_alive = 0.0
+var splunkers_killed = 0
+@export var kill_goal = 10
 
+func _ready():
+	add_to_group("game_manager")
+	randomize()
 	menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	death_screen.process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -26,6 +32,9 @@ func _ready():
 		print("Retry button not found.")
 
 func _process(delta: float) -> void:
+	time_alive += delta
+	time_label.text = "Time: " + str(round(time_alive * 100) / 100)
+
 	time_passed += delta
 	if time_passed >= spawn_interval:
 		time_passed = 0.0
@@ -59,6 +68,19 @@ func player_died():
 	death_screen.visible = true
 	get_tree().paused = true
 
+func increment_kills():
+	splunkers_killed += 1
+	kills_label.text = "Splunkers Killed: " + str(splunkers_killed) + "/10"
+	check_for_victory()
+
+func _change_scene_to_victory():
+	get_tree().change_scene_to_file("res://dialogue2.tscn")
+
+func check_for_victory():
+	if splunkers_killed >= kill_goal:
+		print("Victory! Switching scene...")
+		call_deferred("_change_scene_to_victory")
+
 func _on_retry_pressed():
 	print("Retry button pressed!")
 	get_tree().paused = false
@@ -87,3 +109,9 @@ func _on_QuitButton_pressed():
 	toggle_menu()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://MainMenu.tscn")
+
+func die():
+	var game_node = get_tree().get_root().get_node("Game1")
+	if game_node:
+		game_node.increment_kills()
+	queue_free()

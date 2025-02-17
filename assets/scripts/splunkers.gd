@@ -31,7 +31,13 @@ func _on_area_entered(area: Area2D):
 		return
 	
 	if area.is_in_group("bullets"):
+		die()
 		queue_free()
 		area.queue_free()
 	elif area.get_parent().is_in_group("player"):
 		area.get_parent().take_damage(5)
+
+func die():
+	var game_node = get_tree().get_first_node_in_group("game_manager")
+	if game_node:
+		game_node.increment_kills()

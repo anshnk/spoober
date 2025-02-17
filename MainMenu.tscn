@@ -47,5 +47,5 @@ script = ExtResource("2_wougk")
 offset_top = 600.0
 offset_right = 219.0
 offset_bottom = 649.0
-text = "Beta 0.7.0.
+text = "Beta 0.8.5.
 Bugs are to be encountered."

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://buqbsg1e6q03i"]
+
+[ext_resource type="Texture2D" uid="uid://b87iqyo31c17v" path="res://assets/images/spoober-lost-in-space.png" id="1_wvjlp"]
+[ext_resource type="Script" path="res://assets/scripts/game2.gd" id="2_67r2i"]
+
+[node name="Game2" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 376.0
+offset_top = 288.0
+offset_right = 779.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 50
+text = "To be continued."
+
+[node name="Spoober-lost-in-space" type="Sprite2D" parent="."]
+position = Vector2(576, 128)
+texture = ExtResource("1_wvjlp")
+
+[node name="QuitButton" type="Button" parent="."]
+offset_left = 384.0
+offset_top = 392.0
+offset_right = 776.0
+offset_bottom = 469.0
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+script = ExtResource("2_67r2i")
