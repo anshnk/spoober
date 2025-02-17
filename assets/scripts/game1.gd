@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 func _spawn_circle() -> void:
 	print("Spawning a new splunker.")
 	var splunker = Sprite2D.new()
-	splunker.texture = preload("res://assets/images/splunker.png")
+	splunker.texture = preload("res://assets/images/Splunker.png")
 	splunker.set_script(splunker_script)
 	if splunker:
 		add_child(splunker)

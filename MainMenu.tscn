@@ -42,3 +42,10 @@ position = Vector2(571, 393)
 scale = Vector2(0.0753464, 0.074769)
 texture = ExtResource("7_ejv8d")
 script = ExtResource("2_wougk")
+
+[node name="Label" type="Label" parent="."]
+offset_top = 600.0
+offset_right = 219.0
+offset_bottom = 649.0
+text = "Beta 0.7.0.
+Bugs are to be encountered."
